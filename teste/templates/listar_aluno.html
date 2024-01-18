@@ -2,10 +2,11 @@
 {% block content %}
 
 <h2>Listar Alunos</h2>
-<a href="#">Cadastrar novo aluno</a>
+<a href="{% url 'incluir_aluno' %}">Cadastrar novo aluno</a>
 <table>
     <thead>
         <tr>
+            <th>Id</th>
             <th>Nome</th>
             <th>E-mail</th>
             <th>Ações</th>
@@ -14,10 +15,11 @@
     <tbody>
         {% for a in alunos %}
         <tr>
+            <td>{{a.id}}</td>
             <td>{{a.nome}}</td>
             <td>{{a.email}}</td>
             <td>
-                <a href="#">Editar</a>
+                <a href="{% url 'editar_aluno' a.id %}">Editar</a>
                 <a href="#">Excluir</a>
             </td>
         </tr>

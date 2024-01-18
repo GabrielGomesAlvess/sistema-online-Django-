@@ -2,7 +2,7 @@
 {% block content %}
 
 <h2>Listar Cursos</h2>
-<a href="#">Cadastrar novo curso</a>
+<a href="{% url 'incluir_curso' %}">Cadastrar novo curso</a>
 <table>
     <thead>
         <tr>
@@ -18,7 +18,7 @@
             <td>{{a.carga_horaria}}</td>
             <td>{{a.investimento}}</td>
             <td>
-                <a href="#">Editar</a>
+                <a href="{% url 'editar_curso' a.id %}">Editar</a>
                 <a href="#">Excluir</a>
             </td>
         </tr>
