@@ -13,4 +13,7 @@ urlpatterns = [
     # Editar
     path("editar_aluno/<int:id>", views.editarAluno, name="editar_aluno"),
     path("editar_curso/<int:id>", views.editarCurso, name="editar_curso"),
+    # Excluir
+    path("excluir_aluno/<int:id>", views.excluirAluno, name="excluir_aluno"),
+    path("excluir_curso/<int:id>", views.excluirCurso, name="excluir_curso")
 ]

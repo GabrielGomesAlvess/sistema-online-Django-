@@ -19,7 +19,7 @@
             <td>{{a.investimento}}</td>
             <td>
                 <a href="{% url 'editar_curso' a.id %}">Editar</a>
-                <a href="#">Excluir</a>
+                <a href="{% url 'excluir_curso' a.id %}">Excluir</a>
             </td>
         </tr>
         {% endfor %}

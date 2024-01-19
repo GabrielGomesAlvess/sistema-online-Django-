@@ -20,7 +20,7 @@
             <td>{{a.email}}</td>
             <td>
                 <a href="{% url 'editar_aluno' a.id %}">Editar</a>
-                <a href="#">Excluir</a>
+                <a href="{% url 'excluir_aluno' a.id %}">Excluir</a>
             </td>
         </tr>
         {% endfor %}
