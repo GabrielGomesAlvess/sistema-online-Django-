@@ -2,8 +2,9 @@
 {% block content %}
 
 <h2>Listar Cursos</h2>
-<a href="{% url 'incluir_curso' %}">Cadastrar novo curso</a>
-<table>
+<a href="{% url 'incluir_curso' %}">
+    Cadastrar novo curso</a>
+<table class="table table-striped">
     <thead>
         <tr>
             <th>Nome</th>
@@ -14,6 +15,7 @@
     <tbody>
         {% for a in cursos %}
         <tr>
+            <td>{{a.id}}</td>
             <td>{{a.nome}}</td>
             <td>{{a.carga_horaria}}</td>
             <td>{{a.investimento}}</td>
