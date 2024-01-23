@@ -10,12 +10,44 @@
 </head>
 
 <body>
-    <a href="{% url 'listar_alunos' %}">Alunos</a>
-    <a href="{% url 'listar_cursos' %}">Cursos</a>
 
-    {% block content %}
-    {% endblock %}
+    <div class="container">
+
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    Sistema Online</a>
+                <button class="navbar-toggler" type="button"
+                     data-bs-toggle="collapse" data-bs-target="#menu"
+                     aria-controls="menu" aria-expanded="false"
+                     aria-label="Toggle navigation">
+                     <span>Menu</span>
+                </button>
+                <div class="collapse navbar-collapse" id="menu">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="list-item">
+                            <a href="{% url 'listar_alunos' %}"
+                                class="nav-link">Alunos</a>
+                        </li>
+                        <li class="list-item">
+                            <a href="{% url 'listar_cursos' %}"
+                                class="nav-link">Cursos</a>
+                        </li>
+                    
+
+                    </ul>
+                </div>
+
+            </div>
+
+
+        </nav>
+
+
+        {% block content %}
+        {% endblock %}
+    </div>
 </body>
-{% bootstrap_javascript %}
 
+{% bootstrap_javascript %}
 </html>
