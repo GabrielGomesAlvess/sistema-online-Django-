@@ -1,14 +1,32 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load bootstrap_icons %}
 
 <h2>Listar Cursos</h2>
 <a href="{% url 'incluir_curso' %}" class="btn btn-primary">
     Cadastrar novo curso</a>
+
+<form method="get" id="formulario">
+    <div class="input-group mb-3">
+        <input type="hidden" name="ordem" id="ordem" />
+        <input type="text" class="form-control"
+            placeholder="Digite para buscar curso" aria-label="Digite para buscar curso"
+            name="busca" value="{{ busca }}"
+            aria-describedby="button-addon2">
+        <button class="btn btn-outline-secondary" type="button"
+            id="button-addon2">{% bs_icon 'search' %}</button>
+    </div>    
+
 <table class="table table-striped">
     <thead>
         <tr>
             <th>Id</th>
-            <th>Nome</th>
+            <th>Nome
+                <a href="javascript:void(0)" class="ordem"
+                onclick="ordenar('nome')">{% bs_icon 'arrow-up-short' %}</a>
+                <a href="javascript:void(0)" class="ordem"
+                onclick="ordenar('-nome')">{% bs_icon 'arrow-down-short' %}</a>
+            </th>
             <th>Carga horaria</th>
             <th>Investimento</th>
         </tr>
@@ -23,12 +41,24 @@
             <td>
                 <a href="{% url 'editar_curso' a.id %}"
                 class="btn btn-secondary">Editar</a>
-                <a href="{% url 'excluir_curso' a.id %}"
-                class="btn btn-danger">Excluir</a>
+                <a href="javascript:void(0)"
+                onclick="abrirTela('{% url 'excluir_curso' a.id %}' )"
+                class="btn btn-danger">
+                Excluir</a>
             </td>
         </tr>
         {% endfor %}
     </tbody>
 
 </table>
+<script>
+    function ordenar(criterio){
+        alert(criterio);
+        formulario = document.getElementById("formulario");
+
+        ordem = document.getElementById("ordem");
+        ordem.value = criterio;
+        formulario.submit();
+    }
+</script>
 {% endblock %}

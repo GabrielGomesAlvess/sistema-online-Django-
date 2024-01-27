@@ -7,19 +7,59 @@ from teste.models import Aluno, Curso
 
 # Create your views here.
 def index(request):
-    return render(request, 'inicio.html')
+    return render(request, "inicio.html")
+
 
 def novo(request):
     return HttpResponse("Essa é uma requisição")
 
 
 def listarAlunos(request):
-    alunos = Aluno.objects.all().order_by('nome')
+    busca = request.GET.get("busca")
+    ordem = request.GET.get("ordem")
+
+    if busca:
+        if not ordem: 
+          alunos = (Aluno.objects.filter(nome__icontains=busca).extra(select={"novo": "lower(nome)"})
+            .order_by("novo"))
+        elif ordem == 'nome':
+          alunos = (Aluno.objects.filter(nome__icontains=busca).extra(select={"novo": "lower(nome)"})
+            .order_by("novo"))
+        elif ordem == '-nome':
+           alunos = (Aluno.objects.filter(nome__icontains=busca).extra(select={"novo": "lower(nome)"})
+            .order_by("-novo"))
+
+    else:
+        busca = ''
+        if not ordem: 
+           alunos = Aluno.objects.all().extra(select={"novo": "lower(nome)"}).order_by("novo")
+        elif ordem == 'nome':
+           alunos = Aluno.objects.all().extra(select={"novo": "lower(nome)"}).order_by("novo")
+        elif ordem == '-nome':
+           alunos = Aluno.objects.all().extra(select={"novo": "lower(nome)"}).order_by("-novo")
+
     return render(request, "listar_aluno.html", {"alunos": alunos})
 
 
 def listarCursos(request):
-    cursos = Curso.objects.all()
+    busca = request.GET.get("busca")
+    ordem = request.GET.get("ordem")
+    if busca:
+        if not ordem:
+            cursos = Curso.objects.filter(nome__icontains=busca).extra(select={"novo": "lower(nome)"}).order_by("novo")
+        elif ordem == 'nome':
+            cursos = Curso.objects.filter(nome__icontains=busca).extra(select={"novo": "lower(nome)"}).order_by("novo")
+        elif ordem == '-nome':
+            cursos = Curso.objects.filter(nome__icontains=busca).extra(select={"novo": "lower(nome)"}).order_by("-novo")   
+    else:
+        busca = ''
+        if not ordem:
+            cursos = Curso.objects.all().extra(select={"novo": "lower(nome)"}).order_by("novo")
+        elif ordem == 'nome':
+            cursos = Curso.objects.all().extra(select={"novo": "lower(nome)"}).order_by("novo")
+        elif ordem == '-nome':
+            cursos = Curso.objects.all().extra(select={"novo": "lower(nome)"}).order_by("-novo")  
+
     return render(request, "listar_curso.html", {"cursos": cursos})
 
 
@@ -70,13 +110,14 @@ def editarCurso(request, id):
 
     return render(request, "incluir_curso.html", {"form": form})
 
+
 def excluirAluno(request, id):
     aluno = Aluno.objects.get(id=id)
     aluno.delete()
-    return redirect('listar_alunos')
+    return redirect("listar_alunos")
+
 
 def excluirCurso(request, id):
     curso = Curso.objects.get(id=id)
     curso.delete()
-    return redirect('listar_cursos')
-
+    return redirect("listar_cursos")
